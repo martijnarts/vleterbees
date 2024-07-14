@@ -1,0 +1,16 @@
+[package]
+name = "app"
+
+version.workspace = true
+edition.workspace = true
+description.workspace = true
+repository.workspace = true
+
+[features]
+default = ["hydrate"]
+hydrate = ["leptos/hydrate", "leptos_meta/hydrate"]
+ssr = ["leptos/ssr", "leptos_meta/ssr"]
+
+[dependencies]
+leptos = { workspace = true, features = ["serde"] }
+leptos_meta.workspace = true

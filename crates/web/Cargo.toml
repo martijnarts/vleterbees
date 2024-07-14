@@ -1,0 +1,17 @@
+[package]
+name = "web"
+
+version.workspace = true
+edition.workspace = true
+description.workspace = true
+repository.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+app = { workspace = true, features = ["hydrate"] }
+console_error_panic_hook = { workspace = true }
+leptos = { workspace = true, features = ["serde", "hydrate"] }
+leptos_meta.workspace = true
+wasm-bindgen = { workspace = true }

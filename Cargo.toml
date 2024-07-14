@@ -1,0 +1,70 @@
+[workspace]
+members = [
+    "crates/app",
+    "crates/vleterbees",
+    "crates/server",
+    "crates/ui",
+    "crates/web",
+    "storybook",
+]
+
+# Opt-in to the new feature resolver introduced in Rust 1.51 and Edition 2021.
+# https://doc.rust-lang.org/cargo/reference/resolver.html#resolver-versions
+resolver = "2"
+
+[workspace.package]
+version = "0.0.0"
+edition = "2021"
+
+description = "voor beter vlees"
+repository = "https://github.com/martijnarts/vleterbees"
+
+# Defines a size-optimized profile for the WASM bundle in release mode
+[profile.wasm-release]
+inherits = "release"
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[workspace.dependencies]
+anyhow = "1.0.86"
+app = { path = "crates/app", default-features = false }
+axum = "0.7.5"
+console_error_panic_hook = "0.1.7"
+leptos = { version = "0.6.12", default-features = false }
+leptos_axum = { version = "0.6.12" }
+leptos_dom = { version = "0.6.12", default-features = false }
+leptos_meta = { version = "0.6.12", default-features = false }
+leptos_router = { version = "0.6.12", default-features = false }
+server = { path = "crates/server" }
+tokio = { version = "1.38.0", features = ["macros", "rt-multi-thread"] }
+tower-http = { version = "0.5.2", features = ["fs"] }
+ui = { path = "crates/ui" }
+wasm-bindgen = "=0.2.92"
+
+[workspace.metadata.bin]
+cargo-leptos = { version = "0.2.17" }
+leptosfmt = { version = "0.1.18" }
+taplo-cli = { version = "0.9.0" }
+wasm-bindgen-cli = { version = "=0.2.92" }
+
+[[workspace.metadata.leptos]]
+name = "vleterbees"
+bin-package = "server"
+lib-package = "web"
+site-root = "target/vleterbees"
+style-file = "crates/app/vleterbees.css"
+tailwind-input-file = "crates/app/tailwind.css"
+tailwind-config-file = "crates/app/tailwind.config.js"
+
+[[workspace.metadata.leptos]]
+name = "storybook"
+bin-package = "storybook"
+bin-features = ["ssr"]
+lib-package = "storybook"
+lib-features = ["hydrate"]
+site-root = "target/storybook"
+style-file = "crates/app/vleterbees.css"
+tailwind-input-file = "crates/app/tailwind.css"
+tailwind-config-file = "crates/app/tailwind.config.js"
